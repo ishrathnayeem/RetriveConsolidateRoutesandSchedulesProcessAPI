@@ -1,0 +1,68 @@
+#%RAML 1.0
+title: RetriveConsolidateRoutesandSchedulesWebAppExpAP
+description: This Api is used to retrive the Routes and Schedules from Transport Services for Process API
+
+uses:
+  common: /library/common/traits/commonLibrary.raml
+  routes: /library/route/routes_library.raml
+  schedules: /library/schedule/schedules_library.raml
+
+/booking:
+  /{transportType}:
+    /routes:
+      get:
+        is:
+          - common.transactionId
+          - common.companyName
+          - common.departureLocation
+          - common.destinationLocation
+        responses:
+          200:
+            body:
+              application/json:
+                type: routes.getRoutResponseDataType
+                example: !include /library/route/examples/getRoutes_200Response_example.json
+          400:
+            body:
+              application/json:
+                type: common.commonError
+                example: !include /library/common/examples/400Response_example.json
+          404:
+            body:
+              application/json:
+                type: common.commonError
+                example: !include /library/common/examples/404Response_example.json
+          500:
+            body:
+              application/json:
+                type: common.commonError
+                example: !include /library/common/examples/500Response_example.json
+    /schedules:
+      get:
+        is:
+          - common.transactionId
+          - common.companyName
+          - common.departureLocation
+          - common.destinationLocation
+          - common.requestTimeZone
+        responses:
+          200:
+            body:
+              application/json:
+                type: schedules.getScheduleResponseDataType
+                example: !include /library/schedule/examples/getSchedule_200Response_example.json                     
+          400:
+            body:
+              application/json:
+                type: common.commonError
+                example: !include /library/common/examples/400Response_example.json
+          404:
+            body:
+              application/json:
+                type: common.commonError
+                example: !include /library/common/examples/404Response_example.json
+          500:
+            body:
+              application/json:
+                type: common.commonError
+                example: !include /library/common/examples/500Response_example.json       
